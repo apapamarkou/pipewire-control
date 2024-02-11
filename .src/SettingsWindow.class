@@ -1,0 +1,79 @@
+' Gambas class file
+
+Private configFile As String = "~/.config/.MSD-pipewireconfig.prefs"
+
+Public Sub Form_Open()
+
+  If Exist(configFile) Then
+    Dim sRow As String
+    Dim $sContent As String
+    Dim $aContent As String[]
+    $sContent = File.Load(configFile)
+    $aContent = Split($sContent, gb.NewLine)
+    For Each sRow In $aContent
+      If sRow Begins "SampleRateChangeCommand" Then TextBoxSampleRateChangeCommand.Text = Scan(sRow, "*=*")[1]
+      If sRow Begins "BufferChangeCommand" Then TextBoxBufferChangeCommand.Text = Scan(sRow, "*=*")[1]
+      If sRow Begins "SampleRate" Then SampleRateSettingComboBox.Text = Scan(sRow, "*=*")[1]
+      If sRow Begins "BufferSize" Then BufferSettingComboBox.Text = Scan(sRow, "*=*")[1]
+      If sRow Begins "VideoWidthChangeCommand" Then VideoWidthChangeCommandTextBox.Text = Scan(sRow, "*=*")[1]
+      If sRow Begins "VideoWidth" Then VideoWidthValueBox.Text = Scan(sRow, "*=*")[1]
+      If sRow Begins "VideoHeightChangeCommand" Then VideoHeightChangeCommandTextBox.Text = Scan(sRow, "*=*")[1]
+      If sRow Begins "VideoHeight" Then VideoHeightValueBox.Text = Scan(sRow, "*=*")[1]
+    Next
+  Endif
+
+End
+
+Public Sub Apply_Click()
+  
+  Execute()
+  Save()
+
+End
+
+Public Sub ButtonSavePreferences_Click()
+
+  Save()
+
+End
+
+Private Sub Save()
+
+  Dim line1 As String = "SampleRateChangeCommand=" & TextBoxSampleRateChangeCommand.Text
+  Dim line2 As String = "\nBufferChangeCommand=" & TextBoxBufferChangeCommand.Text
+  Dim line3 As String = "\nSampleRate=" & SampleRateSettingComboBox.Text
+  Dim line4 As String = "\nBufferSize=" & BufferSettingComboBox.Text
+  Dim line5 As String = "\nVideoWidthChangeCommand=" & VideoWidthChangeCommandTextBox.Text
+  Dim line6 As String = "\nVideoWidth=" & VideoWidthValueBox.Text
+  Dim line7 As String = "\nVideoHeightChangeCommand=" & VideoHeightChangeCommandTextBox.Text
+  Dim line8 As String = "\nVideoHeight=" & VideoHeightValueBox.Text
+  Dim content As String = line1 & line2 & line3 & line4 & line5 & line6 & line7 & line8
+
+  File.Save(configFile, content)
+
+End
+
+Private Sub Execute()
+
+  Dim outString As String
+
+  Shell TextBoxSampleRateChangeCommand.Text & " " & SampleRateSettingComboBox.Text To outString
+  Print outString
+  Shell TextBoxBufferChangeCommand.Text & " " & BufferSettingComboBox.Text To outString
+  Print outString
+  Shell VideoHeightChangeCommandTextBox.Text & " " & VideoHeightValueBox.Text To outString
+  Print outString
+  Shell VideoWidthChangeCommandTextBox.Text & " " & VideoWidthValueBox.Text To outString
+  Print outString
+
+End
+
+Public Sub ButtonVideoDefaults_Click()
+  VideoWidthChangeCommandTextBox.Text = "pw-metadata -n settings 0 video.force-width "
+  VideoHeightChangeCommandTextBox.Text = "pw-metadata -n settings 0 video.force-height "
+End
+
+Public Sub ButtonAudioDefaults_Click()
+  TextBoxSampleRateChangeCommand.Text = "pw-metadata -n settings 0 clock.force-rate "
+  TextBoxBufferChangeCommand = "pw-metadata -n settings 0 clock.force-quantum "
+End
