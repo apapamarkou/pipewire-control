@@ -1,2 +1,8 @@
+* Sun Feb 11 2024 Andrianos Papamarkou <papamarkoua@gmail.com> 0.1.14
+- Fix bug "do't start" because missing dependcies
+
+* Sun Feb 11 2024 Andrianos Papamarkou <papamarkoua@gmail.com> 0.1.14
+- Initial release
+
 
 
