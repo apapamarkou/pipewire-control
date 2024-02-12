@@ -2,11 +2,12 @@
 Title=Pipewire config
 Startup=SettingsWindow
 Icon=pipewire-icon.png
-Version=0.1.16 (main)
+Version=0.1.17 (main)
 Component=gb.image
 Component=gb.gui.qt
 Component=gb.form
 Component=gb.dbus
+Component=gb.util
 Component=gb.gui.trayicon
 Component=gb.util.web
 Description="This Gambas3 QT Linux application serves as a convenient tool for configuring Pipewire on the fly. Pipewire is a low-level multimedia framework designed to handle audio and video streams. With this application, users can adjust parameters such as audio samplerate, buffer size, video width, and video height, offering flexibility in settings.This a GUI application to change sample-rate, buffer size and other options on the fly when using pipewire. The application made by a musician and music producer Andrianos Papamarkou (Mark Adrian) on Gambas3 IDE. Uses QT toolkit."

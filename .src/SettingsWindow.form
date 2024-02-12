@@ -2,6 +2,7 @@
 
 { Form Form
   MoveScaled(0,0,61,41)
+  Text = ("Pipewire Control")
   Icon = Picture["pipewire-icon.png"]
   Persistent = True
   Resizable = False

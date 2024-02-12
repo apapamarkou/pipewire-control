@@ -1,114 +1,111 @@
 ' Gambas class file
 
+' Author: Andrianos Papamarkou papamarkoua@gmail.com
+
 Private configFile As String = "~/.config/pipewireconfig.prefs"
 
 Public Sub Form_Close()
-    Print "close"
-    If Not statInTrayCheckBox.Value Then tray.Delete()
-    
+    If Not statInTrayCheckBox.Value Then 
+      tray.Delete
+      Save
+    Endif 
 End Sub
 
-
 Public Sub Form_Open()
+  ' Single instance restriction
+  If anotherInstanceIsRunning() Then forceExit() 
+  ' window and tray setup
   Me.SkipTaskbar = True ' default behavior
   statInTrayCheckBox.Value = True ' default dehavior
   tray.Icon = Picture["pipewire-icon.png"]
-  
-  If Exist(configFile) Then
-    Dim sRow As String
-    Dim $sContent As String
-    Dim $aContent As String[]
-    $sContent = File.Load(configFile)
-    $aContent = Split($sContent, gb.NewLine)
-    For Each sRow In $aContent
-      If sRow Begins "SampleRateChangeCommand" Then sampleRateChangeCommandTextBox.Text = Scan(sRow, "*=*")[1]
-      If sRow Begins "BufferChangeCommand" Then bufferChangeCommandTextBox.Text = Scan(sRow, "*=*")[1]
-      If sRow Begins "SampleRate" Then sampleRateSettingComboBox.Text = Scan(sRow, "*=*")[1]
-      If sRow Begins "BufferSize" Then bufferSettingComboBox.Text = Scan(sRow, "*=*")[1]
-      If sRow Begins "VideoWidthChangeCommand" Then videoWidthChangeCommandTextBox.Text = Scan(sRow, "*=*")[1]
-      If sRow Begins "VideoWidth" Then videoWidthValueTextBox.Text = Scan(sRow, "*=*")[1]
-      If sRow Begins "VideoHeightChangeCommand" Then videoHeightChangeCommandTextBox.Text = Scan(sRow, "*=*")[1]
-      If sRow Begins "VideoHeight" Then videoHeightValueTextBox.Text = Scan(sRow, "*=*")[1]
-      If sRow Begins "StayInTray" Then 
-        Dim b As Boolean
-        Dim s As String
-        s = Scan(sRow, "*=*")[1]
-        If s = "-1" Then b = True Else b = False
-        statInTrayCheckBox.Value = b
-      Endif
-    Next
+  ' previous saved configfile check
+  If Exist(configFile) Then 
+    readFile()
+    Execute() ' execute saved settings on start
   Endif
-
-  Execute() ' execute saved settings on start
-End
+End Sub
 
 Public Sub applyButton_Click()
-  
   Execute()
   Save()
-
-End
+End Sub
 
 Public Sub buttonSavePreferences_Click()
-
   Save()
-
-End
+End Sub
 
 Private Sub Save()
-
-  Dim line1 As String = "SampleRateChangeCommand=" & sampleRateChangeCommandTextBox.Text
-  Dim line2 As String = "\nBufferChangeCommand=" & bufferChangeCommandTextBox.Text
-  Dim line3 As String = "\nSampleRate=" & sampleRateSettingComboBox.Text
-  Dim line4 As String = "\nBufferSize=" & bufferSettingComboBox.Text
-  Dim line5 As String = "\nVideoWidthChangeCommand=" & videoWidthChangeCommandTextBox.Text
-  Dim line6 As String = "\nVideoWidth=" & videoWidthValueTextBox.Text
-  Dim line7 As String = "\nVideoHeightChangeCommand=" & videoHeightChangeCommandTextBox.Text
-  Dim line8 As String = "\nVideoHeight=" & videoHeightValueTextBox.Text
-  Dim line9 As String = "\nStayInTray=" & Str(statInTrayCheckBox.Value)
-  Dim content As String = line1 & line2 & line3 & line4 & line5 & line6 & line7 & line8 & line9
-  File.Save(configFile, content)
-
-End
+  Dim lines As New String[]
+  lines.Add("SampleRateChangeCommand=" & sampleRateChangeCommandTextBox.Text)
+  lines.Add("BufferChangeCommand=" & bufferChangeCommandTextBox.Text)
+  lines.Add("SampleRate=" & sampleRateSettingComboBox.Text)
+  lines.Add("BufferSize=" & bufferSettingComboBox.Text)
+  lines.Add("VideoWidthChangeCommand=" & videoWidthChangeCommandTextBox.Text)
+  lines.Add("VideoWidth=" & videoWidthValueTextBox.Text)
+  lines.Add("VideoHeightChangeCommand=" & videoHeightChangeCommandTextBox.Text)
+  lines.Add("VideoHeight=" & videoHeightValueTextBox.Text)
+  lines.Add("StayInTray=" & Str(statInTrayCheckBox.Value))
+  File.Save(configFile, lines.Join("\n", ""))
+End Sub
 
 Private Sub Execute()
-
-  Dim outString As String
-
-  Shell sampleRateChangeCommandTextBox.Text & " " & sampleRateSettingComboBox.Text To outString
-  Print outString
-  Shell bufferChangeCommandTextBox.Text & " " & bufferSettingComboBox.Text To outString
-  Print outString
-  Shell videoHeightChangeCommandTextBox.Text & " " & videoHeightValueTextBox.Text To outString
-  Print outString
-  Shell videoWidthChangeCommandTextBox.Text & " " & videoWidthValueTextBox.Text To outString
-  Print outString
-
-End
+  Shell sampleRateChangeCommandTextBox.Text & " " & sampleRateSettingComboBox.Text
+  Shell bufferChangeCommandTextBox.Text & " " & bufferSettingComboBox.Text
+  Shell videoHeightChangeCommandTextBox.Text & " " & videoHeightValueTextBox.Text
+  Shell videoWidthChangeCommandTextBox.Text & " " & videoWidthValueTextBox.Text
+End Sub
 
 Public Sub videoDefaultsButton_Click()
   videoWidthChangeCommandTextBox.Text = "pw-metadata -n settings 0 video.force-width "
   videoHeightChangeCommandTextBox.Text = "pw-metadata -n settings 0 video.force-height "
-End
+End Sub
 
 Public Sub audioDefaultsButton_Click()
   sampleRateChangeCommandTextBox.Text = "pw-metadata -n settings 0 clock.force-rate "
   bufferChangeCommandTextBox = "pw-metadata -n settings 0 clock.force-quantum "
-End
+End Sub
 
 Public Sub Tray_Click()
-  
-    If SettingsWindow.Visible And Not SettingsWindow.Minimized Then
-     SettingsWindow.Hide()
-    Else
-     SettingsWindow.Show()
-    End If
-End
-
-
-
-
+  If Not SettingsWindow.HasFocus And Not SettingsWindow.Visible Then SettingsWindow.Show Else SettingsWindow.Hide
+End Sub
 
 Public Sub URLLabel1_Click()
       Shell "xdg-open https://github.com/apapamarkou/pipewire-control"
-End
+End Sub
+
+Private Sub anotherInstanceIsRunning() As Boolean
+  Dim Result As String
+  ' take system processes filter them and remove one (the one that this instance is producing)
+  Shell "ps aux | grep pipewire-control | grep -v grep | tail -n +2" To Result
+  If Result = "" Then Return False Else Return True
+End Function 
+
+Private Sub forceExit()
+  tray.Delete
+  Quit
+End Sub
+
+Private Sub readFile()
+  Dim sRow As String
+  Dim $sContent As String
+  Dim $aContent As String[]
+  $sContent = File.Load(configFile)
+  $aContent = Split($sContent, gb.NewLine)
+  For Each sRow In $aContent
+    If sRow Begins "SampleRateChangeCommand" Then sampleRateChangeCommandTextBox.Text = Scan(sRow, "*=*")[1]
+    If sRow Begins "BufferChangeCommand" Then bufferChangeCommandTextBox.Text = Scan(sRow, "*=*")[1]
+    If sRow Begins "SampleRate" Then sampleRateSettingComboBox.Text = Scan(sRow, "*=*")[1]
+    If sRow Begins "BufferSize" Then bufferSettingComboBox.Text = Scan(sRow, "*=*")[1]
+    If sRow Begins "VideoWidthChangeCommand" Then videoWidthChangeCommandTextBox.Text = Scan(sRow, "*=*")[1]
+    If sRow Begins "VideoWidth" Then videoWidthValueTextBox.Text = Scan(sRow, "*=*")[1]
+    If sRow Begins "VideoHeightChangeCommand" Then videoHeightChangeCommandTextBox.Text = Scan(sRow, "*=*")[1]
+    If sRow Begins "VideoHeight" Then videoHeightValueTextBox.Text = Scan(sRow, "*=*")[1]
+    If sRow Begins "StayInTray" Then 
+      Dim b As Boolean
+      Dim s As String
+      s = Scan(sRow, "*=*")[1]
+      If s = "-1" Then b = True Else b = False
+      statInTrayCheckBox.Value = b
+    Endif
+  Next
+End Sub
