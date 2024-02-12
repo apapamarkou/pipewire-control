@@ -21,7 +21,8 @@ Address=papamarkoua@gmail.com
 Url=https://github.com/apapamarkou/
 License=General Public License V2 only
 Prefix=1
-PackageName=msd-pipewire-control-0.1.14
+PackageName=msd-pipewire-control-0.1.16
+CreateEachDirectory=1
 ExtraDesktop="Categories=Audio;Video;AudioVideo;Multimedia"
 RuntimeVersion="3.0"
 Packager=1

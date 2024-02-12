@@ -1,3 +1,6 @@
+* Mon Feb 12 2024 Andrianos Papamarkou <papamarkoua@gmail.com> 0.1.16
+- Added system tray support
+
 * Sun Feb 11 2024 Andrianos Papamarkou <papamarkoua@gmail.com> 0.1.14
 - Fix bug "do't start" because missing dependcies
 

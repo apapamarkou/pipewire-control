@@ -10,7 +10,8 @@ End Sub
 
 
 Public Sub Form_Open()
-  Me.SkipTaskbar = True
+  Me.SkipTaskbar = True ' default behavior
+  statInTrayCheckBox.Value = True ' default dehavior
   tray.Icon = Picture["pipewire-icon.png"]
   
   If Exist(configFile) Then
@@ -38,6 +39,7 @@ Public Sub Form_Open()
     Next
   Endif
 
+  Execute() ' execute saved settings on start
 End
 
 Public Sub applyButton_Click()
