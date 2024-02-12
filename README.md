@@ -7,6 +7,7 @@ This Gambas3 Linux application serves as a convenient tool for controlling [Pipe
 - Configure Pipewire settings dynamically on the fly
 - Adjust audio samplerate and buffer size
 - Modify video width and height
+- System tray icon for easy access
 
 ## Author
 This application is developed by **Minor Software Development** under the authorship of [**Andrianos Papamarkou**](https://github.com/apapamarkou).
