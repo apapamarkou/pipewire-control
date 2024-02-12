@@ -3,17 +3,25 @@
 { Form Form
   MoveScaled(0,0,61,41)
   Icon = Picture["pipewire-icon.png"]
+  Persistent = True
   Resizable = False
-  TakeFocus = False
   AutoResize = True
   { TabStrip1 TabStrip
-    MoveScaled(1,0,59,40)
-    Count = 2
+    MoveScaled(1,0.4286,59,40)
+    Count = 3
     Index = 0
     Text = ("Settings")
-    { Apply Button
+    { applyButton Button
       MoveScaled(44,30,14,4)
       Text = ("Apply")
+    }
+    { BufferSettingComboBox ComboBox
+      MoveScaled(2,13,16,4)
+      List = [("32"), ("64"), ("128"), ("256"), ("512"), ("1024"), ("2048")]
+    }
+    { BufferSizeLabel Label
+      MoveScaled(2,10,16,3)
+      Text = ("Buffer size")
     }
     { SampleRateLabel Label
       MoveScaled(2,2,17,3)
@@ -23,29 +31,34 @@
       MoveScaled(2,5,16,4)
       List = [("44100"), ("48000"), ("88200"), ("96000")]
     }
-    { BufferSizeLabel Label
-      MoveScaled(2,10,16,3)
-      Text = ("Buffer size")
+    { VideoHeightLabel Label
+      MoveScaled(31,10,19,3)
+      Text = ("Video height")
     }
-    { BufferSettingComboBox ComboBox
-      MoveScaled(2,13,16,4)
-      List = [("32"), ("64"), ("128"), ("256"), ("512"), ("1024"), ("2048")]
+    { videoHeightValueTextBox ValueBox
+      MoveScaled(31,13,18,4)
+      Text = ("400")
     }
     { VideoWidthLabel Label
       MoveScaled(31,2,19,3)
       Text = ("Video width")
     }
-    { VideoHeightValueBox ValueBox
-      MoveScaled(31,13,18,4)
-      Text = ("400")
-    }
-    { VideoHeightLabel Label
-      MoveScaled(31,10,19,3)
-      Text = ("Video height")
-    }
-    { VideoWidthValueBox ValueBox
+    { videoWidthValueTextBox ValueBox
       MoveScaled(31,5,18,4)
       Text = ("640")
+    }
+    { !tray #TrayIcon
+      #MoveScaled(2,18)
+      #Public = True
+      Visible = True
+      Tooltip = ("Pipewire Control Panel")
+    }
+    { ToggleButton1 ToggleButton
+      MoveScaled(35,-4,16,4)
+    }
+    { statInTrayCheckBox CheckBox
+      MoveScaled(2,30,16,4)
+      Text = ("Stay in tray")
     }
     Index = 1
     Text = ("Preferences")
@@ -66,11 +79,11 @@
         MoveScaled(1,9,55,3)
         Text = ("Video height change command")
       }
-      { VideoWidthChangeCommandTextBox TextBox
+      { videoWidthChangeCommandTextBox TextBox
         MoveScaled(1,4,55,4)
         Text = ("pw-metadata -n settings 0 video.force-width")
       }
-      { VideoHeightChangeCommandTextBox TextBox
+      { videoHeightChangeCommandTextBox TextBox
         MoveScaled(1,12,55,4)
         Text = ("pw-metadata -n settings 0 video.force-height")
       }
@@ -84,7 +97,7 @@
         MoveScaled(1,1,55,3)
         Text = ("Samplerate change command")
       }
-      { TextBoxSampleRateChangeCommand TextBox
+      { sampleRateChangeCommandTextBox TextBox
         MoveScaled(1,4,55,4)
         Text = ("pw-metadata -n settings 0 clock.force-rate ")
       }
@@ -92,7 +105,7 @@
         MoveScaled(1,9,55,3)
         Text = ("Buffer change command")
       }
-      { TextBoxBufferChangeCommand TextBox
+      { bufferChangeCommandTextBox TextBox
         MoveScaled(1,12,55,4)
         Text = ("pw-metadata -n settings 0 clock.force-quantum ")
       }
@@ -101,6 +114,32 @@
         Text = ("Restore Defaults")
       }
       Index = 0
+    }
+    Index = 2
+    Text = ("About")
+    { Label1 Label
+      MoveScaled(19,2,20,4)
+      Font = Font["+2"]
+      Text = ("Pipewire Control")
+    }
+    { !URLLabel1 URLLabel
+      MoveScaled(7,12,47,3)
+      #Public = True
+      Text = ("https://github.com/apapamarkou/pipewire-control")
+      Link = "https://github.com/apapamarkou/pipewire-control"
+    }
+    { Label2 Label
+      MoveScaled(14,5,30,4)
+      Font = Font["+1"]
+      Text = ("Minor Software Development")
+    }
+    { Label3 Label
+      MoveScaled(19,8,20,4)
+      Text = ("2024 - License GPL v2 ")
+    }
+    { TextLabel1 TextLabel
+      MoveScaled(3,16,52,16)
+      Text = ("This utility is designed to assist Pipewire pro-audio users in effortlessly adjusting samplerate and buffer size settings. Crafted by Andrianos Papamarkou, a guitarist and audio engineer, this tool aims to streamline the configuration process, enhancing the user experience for musicians and audio professionals alike.")
     }
     Index = 0
   }
