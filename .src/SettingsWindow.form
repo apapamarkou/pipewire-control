@@ -52,7 +52,7 @@
       #MoveScaled(2,18)
       #Public = True
       Visible = True
-      Tooltip = ("Pipewire Control Panel")
+      Tooltip = ("Click to show Pipewire Control Panel")
     }
     { ToggleButton1 ToggleButton
       MoveScaled(35,-4,16,4)

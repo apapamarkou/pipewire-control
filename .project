@@ -2,7 +2,7 @@
 Title=Pipewire config
 Startup=SettingsWindow
 Icon=pipewire-icon.png
-Version=0.1.17 (main)
+Version=0.1.18 (main)
 Component=gb.image
 Component=gb.gui.qt
 Component=gb.form
