@@ -2,7 +2,7 @@
 
 ' Author: Andrianos Papamarkou papamarkoua@gmail.com
 
-Private configFile As String = "~/.config/pipewireconfig.prefs"
+Private configFile As String = "~/.config/pipewire-control.prefs"
 
 Public Sub Form_Close()
     If Not statInTrayCheckBox.Value Then 
