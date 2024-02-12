@@ -41,6 +41,6 @@ This application is provided **as is**, without any warranty.
 If you encounter any issues or have suggestions for improvements, please feel free to open an issue on the GitHub repository.
 
 ---
-**Disclaimer:** This application is provided as is, without any warranty. The developers and contributors disclaim all liability for any damages or issues arising from the use of this software.
+**Disclaimer:** This application is provided as is, without any warranty.
 
 
