@@ -1,7 +1,7 @@
-# Gambas3 Linux App: pipewire-control
+# Linux App: pipewire-control (GUI)
 
 ## Description
-This Gambas3 Linux application serves as a convenient tool for controlling [Pipewire](https://pipewire.org/) on the fly. Pipewire is a low-level multimedia framework designed to handle audio and video streams. With this application, users can adjust parameters such as audio samplerate, buffer size, video width, and video height, offering flexibility in settings.
+This Linux GUI application serves as a convenient tool for controlling [Pipewire](https://pipewire.org/) on the fly. Pipewire is a low-level multimedia framework designed to handle audio and video streams. With this application, users can adjust parameters such as audio samplerate, buffer size, video width, and video height, offering flexibility in settings.
 
 ![Screenshot](images/Screenshot_20240212_114412.png)
 
