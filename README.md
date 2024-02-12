@@ -18,7 +18,7 @@ The application is distributed under the [**GPL v2 License**](https://www.gnu.or
 This application is provided **as is**, without any warranty.
 
 ## Package Installation
-1. Go to [relases](https://github.com/apapamarkou/pipewire-control/releases) and download a package for your distribution.
+1. Go to [releases](https://github.com/apapamarkou/pipewire-control/releases) and download a package for your distribution.
 
 ## Manual Installation
 1. Clone the repository to your local machine.
