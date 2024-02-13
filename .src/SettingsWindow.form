@@ -57,7 +57,7 @@
     { ToggleButton1 ToggleButton
       MoveScaled(35,-4,16,4)
     }
-    { statInTrayCheckBox CheckBox
+    { stayInTrayCheckBox CheckBox
       MoveScaled(2,30,16,4)
       Text = ("Stay in tray")
     }

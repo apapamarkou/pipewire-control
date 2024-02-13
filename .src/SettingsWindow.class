@@ -5,10 +5,11 @@
 Private configFile As String = "~/.config/pipewire-control.prefs"
 
 Public Sub Form_Close()
-    If Not statInTrayCheckBox.Value Then 
+    If Not stayInTrayCheckBox.Value Then 
       tray.Delete
       Save
     Endif 
+    stayInTrayCheckBox.Value = True
 End Sub
 
 Public Sub Form_Open()
@@ -16,7 +17,7 @@ Public Sub Form_Open()
   If anotherInstanceIsRunning() Then forceExit() 
   ' window and tray setup
   Me.SkipTaskbar = True ' default behavior
-  statInTrayCheckBox.Value = True ' default dehavior
+  stayInTrayCheckBox.Value = True ' default dehavior
   tray.Icon = Picture["pipewire-icon.png"]
   ' previous saved configfile check
   If Exist(configFile) Then 
@@ -44,7 +45,7 @@ Private Sub Save()
   lines.Add("VideoWidth=" & videoWidthValueTextBox.Text)
   lines.Add("VideoHeightChangeCommand=" & videoHeightChangeCommandTextBox.Text)
   lines.Add("VideoHeight=" & videoHeightValueTextBox.Text)
-  lines.Add("StayInTray=" & Str(statInTrayCheckBox.Value))
+  lines.Add("StayInTray=" & Str(stayInTrayCheckBox.Value))
   File.Save(configFile, lines.Join("\n", ""))
 End Sub
 
@@ -65,8 +66,8 @@ Public Sub audioDefaultsButton_Click()
   bufferChangeCommandTextBox = "pw-metadata -n settings 0 clock.force-quantum "
 End Sub
 
-Public Sub Tray_Click()
-  If Not SettingsWindow.HasFocus Or Not SettingsWindow.Visible Then SettingsWindow.Show 
+Public Sub Tray_Click() 
+  SettingsWindow.Show
 End Sub
 
 Public Sub URLLabel1_Click()
@@ -105,7 +106,7 @@ Private Sub readFile()
       Dim s As String
       s = Scan(sRow, "*=*")[1]
       If s = "-1" Then b = True Else b = False
-      statInTrayCheckBox.Value = b
+      stayInTrayCheckBox.Value = b
     Endif
   Next
 End Sub
