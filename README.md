@@ -3,7 +3,7 @@
 ## Description
 This Linux GUI application serves as a convenient tool for controlling [Pipewire](https://pipewire.org/) on the fly. Pipewire is a low-level multimedia framework designed to handle audio and video streams. With this application, users can adjust parameters such as audio samplerate, buffer size, video width, and video height, offering flexibility in settings.
 
-![Screenshot](images/Screenshot_20240212_114412.png)
+![Screenshot](images/Screenshot_20240213_102133.png)
 
 ## Features
 - Configure Pipewire settings dynamically on the fly
