@@ -1,23 +1,25 @@
 # Gambas Form File 3.0
 
 { Form Form
-  MoveScaled(0,0,61,41)
+  MoveScaled(0,0,62,41)
   Text = ("Pipewire Control")
   Icon = Picture["pipewire-icon.png"]
   Persistent = True
   Resizable = False
   AutoResize = True
   { TabStrip1 TabStrip
-    MoveScaled(1,0,59,40)
+    MoveScaled(1,0,60,40)
     Count = 3
     Index = 0
     Text = ("Settings")
     { applyButton Button
       MoveScaled(44,30,14,4)
+      ToolTip = ("Apply changes and save all preferences")
       Text = ("Apply")
     }
     { BufferSettingComboBox ComboBox
       MoveScaled(2,13,16,4)
+      ToolTip = ("Select buffer size")
       List = [("32"), ("64"), ("128"), ("256"), ("512"), ("1024"), ("2048")]
     }
     { BufferSizeLabel Label
@@ -30,6 +32,7 @@
     }
     { SampleRateSettingComboBox ComboBox
       MoveScaled(2,5,16,4)
+      ToolTip = ("Select samplerate")
       List = [("44100"), ("48000"), ("88200"), ("96000")]
     }
     { VideoHeightLabel Label
@@ -38,6 +41,7 @@
     }
     { videoHeightValueTextBox ValueBox
       MoveScaled(31,13,18,4)
+      ToolTip = ("Select video height")
       Text = ("400")
     }
     { VideoWidthLabel Label
@@ -46,6 +50,7 @@
     }
     { videoWidthValueTextBox ValueBox
       MoveScaled(31,5,18,4)
+      ToolTip = ("Select video width")
       Text = ("640")
     }
     { !tray #TrayIcon
@@ -59,13 +64,14 @@
     }
     { stayInTrayCheckBox CheckBox
       MoveScaled(2,29,39,4)
-      ToolTip = ("stayInTrayCheckBox")
+      ToolTip = ("Enable this to stay in tray")
       Text = ("Stay in tray")
     }
     Index = 1
     Text = ("Preferences")
     { ButtonSavePreferences Button
       MoveScaled(44,30,14,4)
+      ToolTip = ("Save all settings")
       Text = ("Save")
     }
     { TabStrip2 TabStrip
@@ -75,32 +81,39 @@
       Text = ("Video")
       { VideoWidthCommandLabel Label
         MoveScaled(1,1,55,3)
+        ToolTip = ("Video width change command")
         Text = ("Video width change command")
       }
       { VideoHeightCommandLabel Label
         MoveScaled(1,9,55,3)
+        ToolTip = ("VideoHeightCommandLabel")
         Text = ("Video height change command")
       }
       { videoWidthChangeCommandTextBox TextBox
         MoveScaled(1,4,55,4)
+        ToolTip = ("Video width change command")
         Text = ("pw-metadata -n settings 0 video.force-width")
       }
       { videoHeightChangeCommandTextBox TextBox
         MoveScaled(1,12,55,4)
+        ToolTip = ("VideoHeightCommandLabel")
         Text = ("pw-metadata -n settings 0 video.force-height")
       }
       { ButtonVideoDefaults Button
         MoveScaled(1,18,20,4)
+        ToolTip = ("Restore Defaults")
         Text = ("Restore Defaults")
       }
       Index = 1
       Text = ("Audio")
       { LabelSampleRateChangeCommand Label
         MoveScaled(1,1,55,3)
+        ToolTip = ("Samplerate change command")
         Text = ("Samplerate change command")
       }
       { sampleRateChangeCommandTextBox TextBox
         MoveScaled(1,4,55,4)
+        ToolTip = ("Samplerate change command")
         Text = ("pw-metadata -n settings 0 clock.force-rate ")
       }
       { LabelBufferCangeCommand Label
@@ -109,10 +122,12 @@
       }
       { bufferChangeCommandTextBox TextBox
         MoveScaled(1,12,55,4)
+        ToolTip = ("Buffer change command")
         Text = ("pw-metadata -n settings 0 clock.force-quantum ")
       }
       { ButtonAudioDefaults Button
         MoveScaled(1,18,20,4)
+        ToolTip = ("Restore Defaults")
         Text = ("Restore Defaults")
       }
       Index = 0
@@ -140,7 +155,7 @@
       Text = ("2024 - License GPL v2 ")
     }
     { TextLabel1 TextLabel
-      MoveScaled(3,16,52,16)
+      MoveScaled(4,16,54,16)
       Text = ("This utility is designed to assist Pipewire pro-audio users in effortlessly adjusting samplerate and buffer size settings. Crafted by Andrianos Papamarkou, a guitarist and audio engineer, this tool aims to streamline the configuration process, enhancing the user experience for musicians and audio professionals alike.")
     }
     Index = 0
