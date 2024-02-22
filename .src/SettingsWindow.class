@@ -24,6 +24,7 @@ Public Sub Form_Open()
     readFile()
     Execute() ' execute saved settings on start
   Endif
+  Me.SkipTaskbar = True
 End Sub
 
 Public Sub applyButton_Click()
@@ -109,4 +110,7 @@ Private Sub readFile()
       stayInTrayCheckBox.Value = b
     Endif
   Next
+  
 End Sub
+
+

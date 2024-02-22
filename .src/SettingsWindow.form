@@ -8,7 +8,7 @@
   Resizable = False
   AutoResize = True
   { TabStrip1 TabStrip
-    MoveScaled(1,0.4286,59,40)
+    MoveScaled(1,0,59,40)
     Count = 3
     Index = 0
     Text = ("Settings")
@@ -58,7 +58,8 @@
       MoveScaled(35,-4,16,4)
     }
     { stayInTrayCheckBox CheckBox
-      MoveScaled(2,30,16,4)
+      MoveScaled(2,29,39,4)
+      ToolTip = ("stayInTrayCheckBox")
       Text = ("Stay in tray")
     }
     Index = 1
